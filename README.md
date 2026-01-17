@@ -1,2 +1,2 @@
-This is my second git repository
+This is my first git repository
 
