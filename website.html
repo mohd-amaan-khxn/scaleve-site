@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>RCS Messaging Solutions</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+/* ================= GLOBAL ================= */
+body{
+    font-family:'Segoe UI',sans-serif;
+    scroll-behavior:smooth;
+    padding-top:70px;
+    color:#333;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* LIGHTER MAIN BACKGROUND */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(245, 247, 255, 0.98), rgba(235, 238, 255, 0.95));
+    z-index: -1;
+}
+
+/* Static Code Background */
+.code-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.08;
+    overflow: hidden;
+}
+
+.code-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.code-snippet {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    color: rgba(30, 30, 40, 0.8);
+    line-height: 1.6;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 8px;
+    padding: 15px;
+    border-left: 3px solid #00a3cc;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    max-height: 200px;
+}
+
+.code-snippet .keyword {
+    color: #0066cc;
+}
+
+.code-snippet .string {
+    color: #cc3366;
+}
+
+.code-snippet .comment {
+    color: #666666;
+    font-style: italic;
+}
+
+.code-snippet .function {
+    color: #3366cc;
+}
+
+.code-snippet .number {
+    color: #cc6600;
+}
+
+/* Sections */
+section{
+    padding:80px 20px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ================= RANDOMIZED NAVBAR ================= */
+.navbar{
+    background:rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+.navbar a{
+    color:#333 !important;
+    font-weight:500;
+}
+.navbar-brand {
+    color: #0066cc !important;
+}
+
+/* ================= UPDATED HOME SECTION ================= */
+.hero{
+    min-height:90vh;
+    display:flex;
+    align-items:center;
+    position: relative;
+}
+
+.hero-content {
+    padding-right: 40px;
+}
+
+.hero-image {
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0, 102, 204, 0.15);
+    width: 100%;
+    height: auto;
+    transition: transform 0.5s ease;
+}
+
+.hero-image:hover {
+    transform: scale(1.03);
+}
+
+.hero h1 {
+    font-size: 3.2rem;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    background: linear-gradient(90deg, #0066cc, #00a3cc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero p.lead {
+    font-size: 1.3rem;
+    color: #555;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.hero .btn {
+    padding: 14px 35px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    border-color: #00a3cc;
+    color: #00a3cc;
+    background: transparent;
+    transition: all 0.3s;
+}
+
+.hero .btn:hover {
+    background-color: #00a3cc;
+    color: #fff;
+    box-shadow: 0 0 20px rgba(0, 163, 204, 0.4);
+    transform: translateY(-2px);
+}
+
+/* ================= ABOUT SECTION WITH IMAGE ================= */
+.about-image {
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.about-image:hover {
+    transform: scale(1.02);
+}
+
+.about-content {
+    padding-left: 30px;
+}
+
+.about-content h3 {
+    color: #0066cc;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.about-content p {
+    color: #444;
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+
+.about-features {
+    margin-top: 25px;
+}
+
+.about-features li {
+    margin-bottom: 10px;
+    color: #555;
+    display: flex;
+    align-items: flex-start;
+}
+
+.about-features i {
+    color: #00a3cc;
+    margin-right: 10px;
+    margin-top: 3px;
+}
+
+/* ================= CARDS ================= */
+.card{
+    background:rgba(255,255,255,0.95);
+    color:#333;
+    border-radius:14px;
+    transition:0.3s;
+    border: 1px solid rgba(0, 163, 204, 0.2);
+    box-shadow: 0 8px 25px rgba(0, 102, 204, 0.1);
+    backdrop-filter: blur(4px);
+}
+.card:hover{
+    transform:translateY(-8px);
+    box-shadow: 0 12px 35px rgba(0, 102, 204, 0.15);
+}
+.card h5 {
+    color: #0066cc;
+}
+
+/* ================= ENHANCED FLOW DIAGRAM ================= */
+.flow-section {
+    background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(240,248,255,0.9) 100%);
+    border-radius: 20px;
+    padding: 60px 40px;
+    box-shadow: 0 20px 60px rgba(0, 102, 204, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.flow-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #0066cc, #00a3cc, #0066cc);
+    background-size: 200% 100%;
+    animation: gradientMove 3s linear infinite;
+}
+
+.flow-container {
+    position: relative;
+    z-index: 1;
+}
+
+.flow-diagram {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 20px;
+    margin-top: 40px;
+    position: relative;
+    overflow-x: auto;
+    padding: 20px 0;
+}
+
+.flow-step {
+    background: white;
+    border-radius: 20px;
+    padding: 30px 20px;
+    min-width: 220px;
+    flex: 1;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 102, 204, 0.15);
+    border: 2px solid rgba(0, 163, 204, 0.2);
+    transition: all 0.4s ease;
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.flow-step:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 20px 40px rgba(0, 102, 204, 0.25);
+    border-color: #00a3cc;
+}
+
+/* New Color Scheme for Flow Steps */
+.flow-step:nth-child(1) .flow-icon {
+    background: linear-gradient(135deg, #0066cc, #4d94ff);
+}
+
+.flow-step:nth-child(2) .flow-icon {
+    background: linear-gradient(135deg, #00a3cc, #33ccff);
+}
+
+.flow-step:nth-child(3) .flow-icon {
+    background: linear-gradient(135deg, #0066cc, #6699ff);
+}
+
+.flow-step:nth-child(4) .flow-icon {
+    background: linear-gradient(135deg, #00a3cc, #66d9ff);
+}
+
+.flow-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #0066cc, #00a3cc);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    color: white;
+    font-size: 28px;
+    box-shadow: 0 8px 20px rgba(0, 102, 204, 0.3);
+}
+
+.flow-step h4 {
+    color: #0066cc;
+    font-weight: 700;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.flow-step p {
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 0;
+}
+
+.flow-connector {
+    width: 30px;
+    height: 4px;
+    background: linear-gradient(90deg, #00a3cc, #66c2ff, #00a3cc);
+    position: relative;
+    border-radius: 2px;
+    align-self: center;
+    flex-shrink: 0;
+}
+
+.flow-connector::after {
+    content: "➔";
+    position: absolute;
+    right: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #00a3cc;
+    font-size: 20px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Modal for Detailed Diagrams */
+.flow-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.flow-modal-content {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 800px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+    animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #0066cc;
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.modal-close:hover {
+    background: #00a3cc;
+    transform: rotate(90deg);
+}
+
+.flow-modal-diagram {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.modal-step {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background: #f8faff;
+    border-radius: 15px;
+    border-left: 5px solid #0066cc;
+}
+
+.modal-step-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #0066cc, #00a3cc);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.modal-step-content {
+    flex: 1;
+}
+
+.modal-step-content h5 {
+    color: #0066cc;
+    margin-bottom: 10px;
+}
+
+.modal-step-content p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.modal-step-content ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.modal-step-content li {
+    padding: 5px 0;
+    color: #666;
+    display: flex;
+    align-items: center;
+}
+
+.modal-step-content li i {
+    color: #00a3cc;
+    margin-right: 10px;
+}
+
+/* ================= ENHANCED CONTACT SECTION ================= */
+.contact-section {
+    background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(240,248,255,0.95) 100%);
+    border-radius: 25px;
+    padding: 60px;
+    box-shadow: 0 25px 60px rgba(0, 102, 204, 0.15);
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(90deg, #0066cc, #00a3cc, #0066cc);
+    background-size: 200% 100%;
+    animation: gradientMove 3s linear infinite;
+}
+
+.contact-title {
+    color: #0066cc;
+    font-weight: 800;
+    margin-bottom: 50px;
+    text-align: center;
+    font-size: 2.5rem;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.contact-title::after {
+    content: "";
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, #0066cc, #00a3cc);
+    border-radius: 2px;
+}
+
+.contact-form {
+    background: white;
+    border-radius: 20px;
+    padding: 50px;
+    box-shadow: 0 15px 40px rgba(0, 102, 204, 0.1);
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    flex: 1;
+    min-width: 250px;
+}
+
+.form-label {
+    display: block;
+    color: #0066cc;
+    font-weight: 600;
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+}
+
+.form-label i {
+    margin-right: 10px;
+    color: #00a3cc;
+}
+
+.form-control {
+    width: 100%;
+    padding: 18px 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    color: #333;
+    background: #f9f9f9;
+    transition: all 0.3s ease;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.form-control:focus {
+    border-color: #00a3cc;
+    background: #fff;
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(0, 163, 204, 0.15);
+    transform: translateY(-2px);
+}
+
+.form-control::placeholder {
+    color: #999;
+    font-style: italic;
+}
+
+.message-group {
+    flex: 100%;
+}
+
+textarea.form-control {
+    min-height: 180px;
+    resize: vertical;
+    width: 100%;
+}
+
+.submit-container {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, #0066cc, #00a3cc);
+    color: white;
+    border: none;
+    padding: 20px 50px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 200px;
+    letter-spacing: 1px;
+    box-shadow: 0 10px 30px rgba(0, 102, 204, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.submit-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: 0.5s;
+}
+
+.submit-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 102, 204, 0.4);
+}
+
+.submit-btn:hover::before {
+    left: 100%;
+}
+
+.submit-btn i {
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+}
+
+.submit-btn:hover i {
+    transform: translateX(5px);
+}
+
+/* ================= NEW FOOTER ================= */
+.footer {
+    background: linear-gradient(135deg, #0a0e23 0%, #141a35 100%);
+    padding: 60px 0 20px;
+    border-top: 1px solid rgba(0, 163, 204, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #00a3cc, #0088ff, #00a3cc);
+    background-size: 200% 100%;
+    animation: gradientMove 3s linear infinite;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.footer h5 {
+    color: #00a3cc;
+    font-weight: 600;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 8px;
+}
+
+.footer h5::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: #00a3cc;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 12px;
+}
+
+.footer-links a {
+    color: #b0b0b0;
+    text-decoration: none;
+    transition: all 0.3s;
+    display: inline-block;
+}
+
+.footer-links a:hover {
+    color: #00a3cc;
+    transform: translateX(5px);
+}
+
+.footer-contact p {
+    color: #b0b0b0;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.footer-contact i {
+    color: #00a3cc;
+    margin-right: 10px;
+    width: 20px;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.social-icons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 18px;
+    transition: all 0.3s;
+}
+
+.social-icons a:hover {
+    background: #00a3cc;
+    color: #000;
+    transform: translateY(-5px);
+}
+
+.footer-bottom {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    color: #888;
+    font-size: 14px;
+}
+
+.footer-newsletter {
+    margin-top: 20px;
+}
+
+.footer-newsletter input {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 15px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.footer-newsletter button {
+    background: #00a3cc;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: all 0.3s;
+    width: 100%;
+}
+
+.footer-newsletter button:hover {
+    background: #0088aa;
+    transform: translateY(-2px);
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+    color: #333;
+}
+
+h2 {
+    color: #0066cc;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .flow-diagram {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .flow-step {
+        min-width: 200px;
+        max-width: 200px;
+    }
+    
+    .flow-connector {
+        width: 20px;
+        height: 30px;
+    }
+    
+    .flow-connector::after {
+        right: -10px;
+        top: 50%;
+        transform: translateY(-50%) rotate(90deg);
+    }
+}
+
+@media (max-width: 768px) {
+    .footer h5 {
+        margin-top: 25px;
+    }
+    
+    .social-icons {
+        justify-content: center;
+    }
+    
+    .code-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .code-snippet {
+        font-size: 12px;
+    }
+    
+    .about-content {
+        padding-left: 0;
+        margin-top: 30px;
+    }
+    
+    .contact-section, .contact-form {
+        padding: 30px 20px;
+    }
+    
+    .contact-title {
+        font-size: 1.8rem;
+    }
+    
+    .hero-content {
+        padding-right: 0;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero p.lead {
+        font-size: 1.1rem;
+    }
+    
+    .flow-step {
+        width: 100%;
+        max-width: 280px;
+        margin-bottom: 20px;
+    }
+    
+    .flow-connector {
+        transform: rotate(90deg);
+        margin: 10px 0;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .form-group {
+        width: 100%;
+        min-width: 100%;
+    }
+    
+    .submit-btn {
+        width: 100%;
+    }
+}
+
+/* Content containers */
+.container {
+    position: relative;
+    z-index: 2;
+}
+
+/* RCS Section specific */
+#rcs h2 {
+    color: #fff;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= STATIC CODE BACKGROUND ================= -->
+<div class="code-background">
+    <div class="code-container" id="codeContainer">
+        <!-- Code snippets will be generated by JavaScript -->
+    </div>
+</div>
+
+<!-- ================= FLOW DIAGRAM MODAL ================= -->
+<div class="flow-modal" id="flowModal">
+    <div class="flow-modal-content">
+        <button class="modal-close" id="modalClose">&times;</button>
+        <h3 id="modalTitle">Detailed Flow Diagram</h3>
+        <div class="flow-modal-diagram" id="modalContent">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+    </div>
+</div>
+
+<!-- ================= HEADER ================= -->
+<nav class="navbar navbar-expand-lg fixed-top">
+<div class="container">
+<a class="navbar-brand fw-bold" href="#">RCS Solutions</a>
+
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+<span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="collapse navbar-collapse justify-content-end" id="navMenu">
+<ul class="navbar-nav" id="navbarList">
+<li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+<li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+<li class="nav-item"><a class="nav-link" href="#rcs">RCS</a></li>
+<li class="nav-item"><a class="nav-link" href="#flow">Flow</a></li>
+<li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+<li class="nav-item"><a class="nav-link" href="#products">Products</a></li>
+<li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+</ul>
+</div>
+</div>
+</nav>
+
+<!-- ================= UPDATED HOME SECTION ================= -->
+<section id="home" class="hero">
+<div class="container">
+    <div class="row align-items-center">
+        <div class="col-lg-6 mb-4">
+            <div class="hero-content">
+                <h1 class="display-4 fw-bold">RCS Messaging Solutions</h1>
+                <p class="lead mt-3">
+                    Next-generation business messaging with rich media, interactive buttons, 
+                    advanced analytics, and verified brand messaging delivered directly to 
+                    customers' default messaging apps.
+                </p>
+                <p class="mb-4">
+                    Transform your customer communication with our enterprise-grade 
+                    RCS platform that enables images, videos, carousels, and actionable 
+                    buttons for higher engagement and conversion rates.
+                </p>
+                <a href="#contact" class="btn btn-outline-light btn-lg mt-2">Request Demo</a>
+            </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
+                 alt="Coding and Messaging Technology" class="hero-image">
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section id="about">
+<div class="container">
+<h2 class="text-center mb-5">About RCS Solutions</h2>
+<div class="row align-items-center">
+    <div class="col-lg-6 mb-4">
+        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
+             alt="RCS Messaging Technology" class="about-image">
+    </div>
+    <div class="col-lg-6 mb-4">
+        <div class="about-content">
+            <h3>Revolutionizing Business Communication</h3>
+            <p>RCS (Rich Communication Services) is transforming how businesses connect with their customers. As the next-generation replacement for SMS, RCS brings rich, interactive messaging experiences directly to users' default messaging apps.</p>
+            <p>At RCS Solutions, we specialize in helping businesses leverage this powerful technology to create engaging customer experiences, drive conversions, and build stronger brand relationships through verified, interactive messaging.</p>
+            
+            <div class="about-features">
+                <h5>Why Choose RCS?</h5>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-check-circle"></i> <strong>Verified Business Identity:</strong> Build trust with verified sender profiles</li>
+                    <li><i class="fas fa-check-circle"></i> <strong>Rich Media Support:</strong> Send images, videos, and interactive cards</li>
+                    <li><i class="fas fa-check-circle"></i> <strong>Actionable Messages:</strong> Include buttons for direct user actions</li>
+                    <li><i class="fas fa-check-circle"></i> <strong>Enhanced Analytics:</strong> Track opens, clicks, and engagement metrics</li>
+                    <li><i class="fas fa-check-circle"></i> <strong>Wide Reach:</strong> Works on Android Messages app by default</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</section>
+
+<!-- ================= RCS ================= -->
+<section id="rcs" class="bg-light">
+<div class="container">
+<h2 class="text-center mb-4">What is RCS Messaging?</h2>
+<p class="text-center mb-5">
+RCS (Rich Communication Services) upgrades SMS into rich, interactive & branded messaging.
+</p>
+
+<div class="row">
+<div class="col-md-6 mb-4">
+<div class="card p-4 h-100">
+<h5>What is RCS?</h5>
+<p>
+RCS enables images, videos, buttons, carousels and verified brand messages
+directly inside the default mobile Messages app.
+</p>
+</div>
+</div>
+
+<div class="col-md-6 mb-4">
+<div class="card p-4 h-100">
+<h5>How RCS Works</h5>
+<ul>
+<li>Create interactive campaigns</li>
+<li>Send via verified RCS platform</li>
+<li>Delivered through Google / Operators</li>
+<li>User interacts instantly</li>
+<li>Engagement analytics tracked</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ================= ENHANCED FLOW DIAGRAM ================= -->
+<section id="flow" class="flow-section">
+<div class="container">
+    <div class="flow-container">
+        <h2 class="text-center mb-5">RCS Messaging Flow Diagram</h2>
+        <p class="text-center mb-5" style="color: #555; font-size: 1.2rem; max-width: 800px; margin: 0 auto;">
+            High-level overview of how RCS messaging flows from business creation to customer interaction
+        </p>
+        
+        <div class="flow-diagram">
+            <!-- Step 1: Business -->
+            <div class="flow-step" data-step="1">
+                <div class="flow-icon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <h4>Business</h4>
+                <p>Creates interactive RCS campaigns with rich media, buttons, and branding</p>
+            </div>
+            
+            <div class="flow-connector"></div>
+            
+            <!-- Step 2: RCS Platform -->
+            <div class="flow-step" data-step="2">
+                <div class="flow-icon">
+                    <i class="fas fa-server"></i>
+                </div>
+                <h4>RCS Platform</h4>
+                <p>Validates, processes & routes messages through secure API integration</p>
+            </div>
+            
+            <div class="flow-connector"></div>
+            
+            <!-- Step 3: Google/Operator -->
+            <div class="flow-step" data-step="3">
+                <div class="flow-icon">
+                    <i class="fas fa-cloud"></i>
+                </div>
+                <h4>Google/Operator</h4>
+                <p>Verifies business identity & delivers messages through carrier networks</p>
+            </div>
+            
+            <div class="flow-connector"></div>
+            
+            <!-- Step 4: Customer -->
+            <div class="flow-step" data-step="4">
+                <div class="flow-icon">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <h4>Customer</h4>
+                <p>Receives rich interactive message & engages with content in default app</p>
+            </div>
+        </div>
+        
+        <div class="text-center mt-5">
+            <div style="background: linear-gradient(90deg, #0066cc, #00a3cc); display: inline-block; padding: 10px 30px; border-radius: 10px; color: white; font-weight: 600;">
+                <i class="fas fa-chart-line me-2"></i> Real-time Analytics & Engagement Tracking
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- ================= SERVICES ================= -->
+<section id="services" class="bg-light">
+<div class="container">
+<h2 class="text-center mb-5">Our Services</h2>
+<div class="row text-center">
+<div class="col-md-4 mb-4">
+<div class="card p-4">
+<h5>RCS Messaging</h5>
+<p>Interactive & branded messaging</p>
+</div>
+</div>
+<div class="col-md-4 mb-4">
+<div class="card p-4">
+<h5>WhatsApp Business</h5>
+<p>Automation & chatbots</p>
+</div>
+</div>
+<div class="col-md-4 mb-4">
+<div class="card p-4">
+<h5>SMS Solutions</h5>
+<p>Transactional & promotional</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ================= PRODUCTS ================= -->
+<section id="products">
+<div class="container">
+<h2 class="text-center mb-5">Our Products</h2>
+<div class="row text-center">
+<div class="col-md-4 mb-4">
+<div class="card p-4">
+<h5>RCS Campaign Manager</h5>
+<p>Design & manage campaigns</p>
+</div>
+</div>
+<div class="col-md-4 mb-4">
+<div class="card p-4">
+<h5>Messaging APIs</h5>
+<p>RCS, WhatsApp & SMS</p>
+</div>
+</div>
+<div class="col-md-4 mb-4">
+<div class="card p-4">
+<h5>Analytics Dashboard</h5>
+<p>Real-time engagement insights</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ================= ENHANCED CONTACT SECTION ================= -->
+<section id="contact">
+<div class="container">
+    <div class="contact-section">
+        <h2 class="contact-title">Get In Touch</h2>
+        
+        <div class="contact-form">
+            <form id="contactForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-user"></i> Your Name</label>
+                        <input type="text" class="form-control" placeholder="Enter your full name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-envelope"></i> Your Email</label>
+                        <input type="email" class="form-control" placeholder="Enter your email address" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group message-group">
+                        <label class="form-label"><i class="fas fa-comment"></i> Your Message</label>
+                        <textarea class="form-control" placeholder="Tell us about your requirements or ask any questions..." rows="5" required></textarea>
+                    </div>
+                </div>
+                
+                <div class="submit-container">
+                    <button type="submit" class="submit-btn">
+                        Send Message <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- ================= NEW FOOTER ================= -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <!-- Company Info -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <h5>RCS Solutions</h5>
+                <p class="text-muted" style="color: #b0b0b0 !important;">
+                    Leading provider of next-generation business messaging solutions with RCS, WhatsApp Business, and SMS platforms.
+                </p>
+                <div class="social-icons">
+                    <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <!-- Quick Links -->
+            <div class="col-lg-2 col-md-6 mb-4">
+                <h5>Quick Links</h5>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#rcs">RCS</a></li>
+                    <li><a href="#flow">Flow</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            
+            <!-- Services -->
+            <div class="col-lg-3 col-md-6 mb-4">
+                <h5>Our Services</h5>
+                <ul class="footer-links">
+                    <li><a href="#services">RCS Messaging</a></li>
+                    <li><a href="#services">WhatsApp Business</a></li>
+                    <li><a href="#services">SMS Solutions</a></li>
+                    <li><a href="#products">Campaign Manager</a></li>
+                    <li><a href="#products">Messaging APIs</a></li>
+                    <li><a href="#products">Analytics Dashboard</a></li>
+                </ul>
+            </div>
+            
+            <!-- Contact & Newsletter -->
+            <div class="col-lg-3 col-md-6 mb-4">
+                <h5>Contact Info</h5>
+                <div class="footer-contact">
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Tech Street, Digital City</p>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> info@rcssolutions.com</p>
+                </div>
+                
+                <div class="footer-newsletter">
+                    <h6>Stay Updated</h6>
+                    <p style="color: #b0b0b0; font-size: 14px;">Subscribe to our newsletter for the latest in messaging technology.</p>
+                    <input type="email" placeholder="Your email address">
+                    <button type="submit">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2026 RCS Solutions. All Rights Reserved. | <a href="#" style="color: #00a3cc; text-decoration: none;">Privacy Policy</a> | <a href="#" style="color: #00a3cc; text-decoration: none;">Terms of Service</a></p>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+// Smooth scrolling for all anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        if(targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if(targetElement) {
+            window.scrollTo({
+                top: targetElement.offsetTop - 70,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// Newsletter form submission
+document.querySelector('.footer-newsletter button').addEventListener('click', function(e) {
+    e.preventDefault();
+    const emailInput = document.querySelector('.footer-newsletter input');
+    if(emailInput.value) {
+        alert('Thank you for subscribing to our newsletter!');
+        emailInput.value = '';
+    } else {
+        alert('Please enter your email address.');
+    }
+});
+
+// Contact form submission
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Get form values
+    const name = this.querySelector('input[type="text"]').value;
+    const email = this.querySelector('input[type="email"]').value;
+    const message = this.querySelector('textarea').value;
+    
+    // Simple validation
+    if(name && email && message) {
+        alert('Thank you for your message! We will contact you soon.');
+        this.reset();
+    } else {
+        alert('Please fill in all required fields.');
+    }
+});
+
+// Generate random static code snippets
+const codeTemplates = [
+    {
+        language: "javascript",
+        code: `// RCS Message Sender
+<span class="keyword">function</span> <span class="function">sendRCSMessage</span>(to, content) {
+  <span class="keyword">const</span> message = {
+    to: <span class="string">"+1"</span> + to,
+    content: content,
+    richCard: {
+      title: <span class="string">"Special Offer"</span>,
+      image: <span class="string">"offer.jpg"</span>,
+      buttons: [<span class="string">"Shop Now"</span>, <span class="string">"Learn More"</span>]
+    }
+  };
+  <span class="keyword">return</span> rcsAPI.send(message);
+}`
+    },
+    {
+        language: "python",
+        code: `# RCS Analytics Tracker
+<span class="keyword">class</span> <span class="function">RCSTracker</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, message_id):
+        self.message_id = message_id
+        self.views = <span class="number">0</span>
+        self.clicks = <span class="number">0</span>
+    
+    <span class="keyword">def</span> <span class="function">track_engagement</span>(self):
+        <span class="comment"># Calculate engagement metrics</span>
+        ctr = (self.clicks / max(self.views, <span class="number">1</span>)) * <span class="number">100</span>
+        <span class="keyword">return</span> {
+            <span class="string">"views"</span>: self.views,
+            <span class="string">"clicks"</span>: self.clicks,
+            <span class="string">"ctr"</span>: f<span class="string">"{ctr:.2f}%"</span>
+        }`
+    },
+    {
+        language: "html",
+        code: `&lt;<span class="keyword">!-- RCS Message Template --</span>&gt;
+&lt;<span class="function">rcs-message</span>&gt;
+  &lt;<span class="function">header</span>&gt;
+    &lt;<span class="function">verified-badge</span>&gt;✓&lt;/<span class="function">verified-badge</span>&gt;
+    &lt;<span class="function">business-name</span>&gt;RCS Solutions&lt;/<span class="function">business-name</span>&gt;
+  &lt;/<span class="function">header</span>&gt;
+  
+  &lt;<span class="function">content</span>&gt;
+    &lt;<span class="function">text</span>&gt;Your order is ready for pickup!&lt;/<span class="function">text</span>&gt;
+    &lt;<span class="function">image</span> src=<span class="string">"order-qr.png"</span> /&gt;
+  &lt;/<span class="function">content</span>&gt;
+  
+  &lt;<span class="function">suggestions</span>&gt;
+    &lt;<span class="function">reply</span> text=<span class="string">"Track Order"</span> /&gt;
+    &lt;<span class="function">reply</span> text=<span class="string">"Contact Support"</span> /&gt;
+  &lt;/<span class="function">suggestions</span>&gt;
+&lt;/<span class="function">rcs-message</span>&gt;`
+    },
+    {
+        language: "java",
+        code: `<span class="comment">// RCS Campaign Manager</span>
+<span class="keyword">public class</span> <span class="function">RCSCampaign</span> {
+    <span class="keyword">private</span> String campaignId;
+    <span class="keyword">private</span> List&lt;String&gt; recipients;
+    <span class="keyword">private</span> String messageContent;
+    
+    <span class="keyword">public</span> <span class="function">RCSCampaign</span>(String id) {
+        <span class="keyword">this</span>.campaignId = id;
+        <span class="keyword">this</span>.recipients = <span class="keyword">new</span> ArrayList&lt;&gt;();
+    }
+    
+    <span class="keyword">public void</span> <span class="function">scheduleCampaign</span>(Date sendTime) {
+        <span class="comment">// Schedule RCS message delivery</span>
+        CampaignScheduler.schedule(<span class="keyword">this</span>, sendTime);
+    }
+}`
+    },
+    {
+        language: "php",
+        code: `<span class="comment">&lt;?php
+// WhatsApp Business Integration</span>
+<span class="keyword">class</span> <span class="function">WhatsAppManager</span> {
+    <span class="keyword">private</span> $apiKey;
+    <span class="keyword">private</span> $phoneNumberId;
+    
+    <span class="keyword">public function</span> <span class="function">__construct</span>($apiKey, $phoneNumberId) {
+        <span class="keyword">$this</span>-&gt;apiKey = $apiKey;
+        <span class="keyword">$this</span>-&gt;phoneNumberId = $phoneNumberId;
+    }
+    
+    <span class="keyword">public function</span> <span class="function">sendTemplateMessage</span>($to, $templateName) {
+        $data = [
+            <span class="string">'messaging_product'</span> =&gt; <span class="string">'whatsapp'</span>,
+            <span class="string">'to'</span> =&gt; $to,
+            <span class="string">'type'</span> =&gt; <span class="string">'template'</span>,
+            <span class="string">'template'</span> =&gt; [
+                <span class="string">'name'</span> =&gt; $templateName,
+                <span class="string">'language'</span> =&gt; [<span class="string">'code'</span> =&gt; <span class="string">'en'</span>]
+            ]
+        ];
+        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;makeRequest($data);
+    }
+}
+<span class="comment">?&gt;</span>`
+    },
+    {
+        language: "sql",
+        code: `<span class="comment">-- Messaging Database Schema</span>
+<span class="keyword">CREATE TABLE</span> <span class="function">rcs_messages</span> (
+    message_id <span class="function">UUID PRIMARY KEY</span>,
+    recipient <span class="function">VARCHAR(20)</span> <span class="keyword">NOT NULL</span>,
+    content <span class="function">TEXT</span>,
+    sent_at <span class="function">TIMESTAMP DEFAULT</span> CURRENT_TIMESTAMP,
+    status <span class="function">VARCHAR(20)</span> <span class="keyword">DEFAULT</span> <span class="string">'pending'</span>,
+    delivery_status <span class="function">VARCHAR(20)</span>
+);
+
+<span class="keyword">CREATE TABLE</span> <span class="function">message_analytics</span> (
+    analytic_id <span class="function">SERIAL PRIMARY KEY</span>,
+    message_id <span class="function">UUID REFERENCES</span> rcs_messages(message_id),
+    opened_at <span class="function">TIMESTAMP</span>,
+    clicked_at <span class="function">TIMESTAMP</span>,
+    device_type <span class="function">VARCHAR(50)</span>
+);`
+    }
+];
+
+// Function to generate random code snippets
+function generateCodeSnippets() {
+    const container = document.getElementById('codeContainer');
+    container.innerHTML = '';
+    
+    // Create 12 random code snippets (more for a fuller look)
+    for (let i = 0; i < 12; i++) {
+        const randomTemplate = codeTemplates[Math.floor(Math.random() * codeTemplates.length)];
+        
+        const snippet = document.createElement('div');
+        snippet.className = 'code-snippet';
+        snippet.innerHTML = randomTemplate.code;
+        
+        // Randomize position and size
+        snippet.style.gridColumn = `span ${Math.floor(Math.random() * 2) + 1}`;
+        snippet.style.gridRow = `span ${Math.floor(Math.random() * 2) + 1}`;
+        
+        // Random opacity for variety
+        snippet.style.opacity = `${0.6 + Math.random() * 0.3}`;
+        
+        container.appendChild(snippet);
+    }
+}
+
+// ========== RANDOM NAVBAR FUNCTIONALITY ==========
+function randomizeNavbar() {
+    const navbarList = document.getElementById('navbarList');
+    const navItems = Array.from(navbarList.children);
+    
+    // Fisher-Yates shuffle algorithm
+    for (let i = navItems.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        navbarList.appendChild(navItems[j]);
+    }
+    
+    console.log('Navbar randomized! Items are now in a unique order for this user.');
+}
+
+// ========== FLOW DIAGRAM MODAL FUNCTIONALITY ==========
+function setupFlowDiagramClicks() {
+    const flowSteps = document.querySelectorAll('.flow-step');
+    const flowModal = document.getElementById('flowModal');
+    const modalClose = document.getElementById('modalClose');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalContent = document.getElementById('modalContent');
+    
+    // Flow step detailed content
+    const stepDetails = {
+        1: {
+            title: "Business Campaign Creation",
+            icon: "fas fa-building",
+            description: "The business creates interactive RCS campaigns using our platform's intuitive campaign manager.",
+            details: [
+                "Design rich media content (images, videos, carousels)",
+                "Add interactive buttons and call-to-action elements",
+                "Set up audience targeting and segmentation",
+                "Schedule campaign delivery for optimal timing",
+                "Preview messages across different device types"
+            ],
+            subSteps: [
+                "Content Design → Audience Selection → Scheduling → Preview"
+            ]
+        },
+        2: {
+            title: "RCS Platform Processing",
+            icon: "fas fa-server",
+            description: "Our enterprise-grade RCS platform validates and processes messages through secure APIs.",
+            details: [
+                "Message validation and compliance checks",
+                "Secure API integration with business systems",
+                "Real-time message queuing and routing",
+                "Carrier compatibility verification",
+                "Message encryption and security protocols"
+            ],
+            subSteps: [
+                "Validation → Queueing → Routing → Security"
+            ]
+        },
+        3: {
+            title: "Google/Operator Verification & Delivery",
+            icon: "fas fa-cloud",
+            description: "Messages are verified for business identity and delivered through carrier networks.",
+            details: [
+                "Business identity verification (Google Verified SMS)",
+                "Carrier network routing optimization",
+                "Message delivery status tracking",
+                "Fallback to SMS when RCS unavailable",
+                "Network compatibility checks"
+            ],
+            subSteps: [
+                "Verification → Network Routing → Delivery → Fallback"
+            ]
+        },
+        4: {
+            title: "Customer Interaction & Engagement",
+            icon: "fas fa-user-check",
+            description: "Customers receive rich interactive messages and engage with content in their default messaging app.",
+            details: [
+                "Rich message display in default messaging app",
+                "Interactive button responses and actions",
+                "Media viewing and interaction",
+                "Direct reply capabilities",
+                "Opt-out management and preferences"
+            ],
+            subSteps: [
+                "Reception → Interaction → Response → Action"
+            ]
+        }
+    };
+    
+    // Add click event to each flow step
+    flowSteps.forEach(step => {
+        step.addEventListener('click', function() {
+            const stepNumber = this.getAttribute('data-step');
+            const stepDetail = stepDetails[stepNumber];
+            
+            // Update modal title
+            modalTitle.textContent = stepDetail.title;
+            
+            // Build modal content
+            let contentHTML = `
+                <div class="modal-step">
+                    <div class="modal-step-icon">
+                        <i class="${stepDetail.icon}"></i>
+                    </div>
+                    <div class="modal-step-content">
+                        <h5>${stepDetail.title}</h5>
+                        <p>${stepDetail.description}</p>
+                        
+                        <h6>Key Functions:</h6>
+                        <ul>
+                            ${stepDetail.details.map(detail => `<li><i class="fas fa-caret-right"></i> ${detail}</li>`).join('')}
+                        </ul>
+                        
+                        <h6>Process Flow:</h6>
+                        <ul>
+                            ${stepDetail.subSteps.map(step => `<li><i class="fas fa-arrow-right"></i> ${step}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="background: #f0f8ff; padding: 20px; border-radius: 10px; margin-top: 20px;">
+                    <h6 style="color: #0066cc; margin-bottom: 10px;"><i class="fas fa-chart-line me-2"></i>Analytics & Metrics</h6>
+                    <p style="color: #555;">This step is tracked with real-time analytics including:</p>
+                    <ul style="columns: 2; column-gap: 30px;">
+                        <li>Delivery success rate</li>
+                        <li>User engagement metrics</li>
+                        <li>Response time tracking</li>
+                        <li>Conversion tracking</li>
+                        <li>Device compatibility stats</li>
+                        <li>Carrier delivery performance</li>
+                    </ul>
+                </div>
+            `;
+            
+            modalContent.innerHTML = contentHTML;
+            
+            // Show modal
+            flowModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        });
+    });
+    
+    // Close modal functionality
+    modalClose.addEventListener('click', function() {
+        flowModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    });
+    
+    // Close modal when clicking outside content
+    flowModal.addEventListener('click', function(e) {
+        if (e.target === flowModal) {
+            flowModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    });
+    
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && flowModal.style.display === 'flex') {
+            flowModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    });
+}
+
+// Initialize when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    generateCodeSnippets();
+    randomizeNavbar();
+    setupFlowDiagramClicks();
+    
+    // Regenerate snippets every 30 seconds for variety
+    setInterval(generateCodeSnippets, 30000);
+});
+</script>
+</body>
+</html>
